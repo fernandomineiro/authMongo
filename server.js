@@ -8,7 +8,9 @@ var corsOptions = {
   origin: "http://localhost:8081"
 };
 
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: '*'
+}));
 
 app.use(express.json());
 
@@ -18,9 +20,20 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(`mongodb+srv://fernando:fer123456@cluster0.1ri7hwx.mongodb.net/?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    autoIndex: true,
+    poolSize: 10,
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 75000,
+    family: 4,
+    keepAlive: true, 
+    keepAliveInitialDelay: 300000,
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
